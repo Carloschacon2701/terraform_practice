@@ -3,3 +3,13 @@ output "last_ami" {
   description = "aws UBUNTU ami id"
 
 }
+
+output "vpc_id" {
+  value = data.aws_vpc.selected.id
+}
+
+
+output "iam_policy" {
+  value = data.aws_iam_policy_document.iam_policy.json
+
+}

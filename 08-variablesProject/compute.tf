@@ -14,21 +14,14 @@ data "aws_ami" "latest_ubuntu" {
 
 }
 
-data "aws_vpc" "selected" {
-  tags = {
-    "Env" = "Prod" 
-  }
-}
-
-resource "aws_instance" "ubuntu_instance" {
+resource "aws_instance" "compute" {
   ami           = data.aws_ami.latest_ubuntu.id
-  instance_type = "t2.micro"
+  instance_type = var.ec2_instance_type
 
   root_block_device {
-    volume_size           = 10
-    volume_type           = "gp3"
     delete_on_termination = true
+    volume_size           = var.ec2_volume_size
+    volume_type           = var.volumen_type
   }
+
 }
-
-
