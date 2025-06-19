@@ -16,12 +16,15 @@ data "aws_ami" "latest_ubuntu" {
 
 resource "aws_instance" "compute" {
   ami           = data.aws_ami.latest_ubuntu.id
-  instance_type = var.ec2_instance_type
+  instance_type = var.ec2_volume_config.type
 
   root_block_device {
     delete_on_termination = true
     volume_size           = var.ec2_volume_size
-    volume_type           = var.volumen_type
+    volume_type           = "gp3"
   }
 
+  tags = merge(var.additional_tags, {
+    managedBy = "terraform"
+  })
 }
